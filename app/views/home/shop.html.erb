@@ -1,0 +1,444 @@
+<body id="shop_body">
+  <%if (current_user.island != 0) && (current_user.island != 17)%>
+  <div id="success_get_pet">
+    <div class="success_get">
+      <p><%=@island_data[0].name%> 구출 완료!</p>
+      <%= image_tag("animal/animal_#{current_user.island}.png") %>
+    </div>
+    <div id="create_pet_name">
+      <p>당신을 따라가려고 합니다.</p>
+      <p>이름을 지어주세요.</p>
+      <form method="post" action="/shop/buy_pet">
+        <input type="text" name="pet_name" value="<%=@island_data[0].name%>"></input>
+        <input id="shop_pet_price" type="hidden" name="shop_pet_price" value="<%=@papers[0].need_coin%>"></input>
+        <input type="hidden" name="shop_pet" value="<%=current_user.island%>"></input>
+        <button type="submit" class="pet_buy_btn">완료</button>
+      </form>
+    </div>
+  </div>
+  <div id="fail_get_pet">
+    <div class="fail_get">
+      <p><%=@island_data[0].name%> 구출 완료!</p>
+      <p id="pet_gone">당신이 구출하신 동물은<br> <%=@island_data[0].name%>섬으로 잘 돌아 갔습니다.</p>
+      <button class="pet_buy_btn" onclick="fail_get_pet()">확인</button>
+    </div>
+  </div>
+  <div id="buy_pet_page">
+    <div class="buy_shop_paper">
+      <%= image_tag("character/items/paper1_1.png", id:"blink") %>
+    </div>
+    <div class="during_buy_img">
+      <%= image_tag("animal/animal_#{current_user.island}.png") %>
+      <p><%=@island_data[0].name%> 구출 중...</p>
+    </div>
+  </div>
+  <%end%>
+  <div id="shop_page" class="animate-bottom">
+  <header>
+    <div class="shop_name_holder">
+      <p id="shop_name">Shop</p>
+    </div>
+  </header>
+  <section id="shop_section">
+    <div class="container-fluid">
+      <div class="row">
+        <%if (current_user.island != 0) && (current_user.island != 17)%>
+          <div class="col-xs-12 upper_shop">
+            <%= image_tag("shop_upper.png") %>
+            <div class="shop_paper">
+              <%= image_tag("character/items/paper1_1.png") %>
+            </div>
+          </div>
+          <div class="col-xs-12 shop_pet_info">
+            <div class="row">
+              <div class="col-xs-4 shop_item_holder">
+                <div class="shop_pet_imgholder">
+                  <%= image_tag("animal/animal_#{current_user.island}.png") %>
+                  <%= image_tag("dogcage.png", id:"dogcage") %>
+                </div>
+              </div>
+              <div class="col-xs-8 shop_pet_detail_info">
+                <div class="shop_pet_setting">
+                  <span class="shop_coin"><%= image_tag("icon/coin.png") %> Price :</span><span class="price"> <%=@papers[0].need_coin%> </span>
+                  <button class="pet_buy_btn" onclick="return buy_pet();">Buy</button><br>
+                  <span class="shop_coin"><%= image_tag("icon/coin.png") %></span><span class="user_coin">My coin : <%=current_user.coin%></span><br>
+                </div>
+                <div class="shop_pet_description">
+                  <p class="shop_pet_title"><%=@papers[0].name%></p>
+                  <p class="shop_pet_detail"><%=@papers[0].description%></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        <%end%>
+
+        <div class="col-xs-12 lower_shop">
+          <div class="row">
+            <div class="col-xs-3">
+
+            </div>
+            <div class="col-xs-6 shop_character_info">
+              <div class="shop_character_img">
+              
+              <% if current_user.hat != 0 %>
+                  <div class="shop_character_hat">
+                    <%= image_tag("character/items/hat_#{current_user.hat}_small.png", id:"wearing_hat") %>
+                  </div>
+                <%else%>
+                  <div class="shop_character_hat">
+                    <%= image_tag("", id:"wearing_hat") %>
+                  </div>
+                <%end%>
+                  
+                <% if current_user.dress != 0 %>
+                  <div class="shop_character_clothes">
+                    <%= image_tag("character/items/clothes_#{current_user.dress}_small.png", id:"wearing_clothes") %>
+                  </div>
+                <%else%>
+                  <div class="shop_character_clothes">
+                    <%= image_tag("", id:"wearing_clothes") %>
+                  </div>
+                <% end %>
+                
+                <% if current_user.bag != 0 %>
+                  <div class="shop_character_bag">
+                    <%= image_tag("character/items/bag_#{current_user.bag}_small.png", id:"wearing_bag") %>
+                  </div>
+                <%else%>
+                  <div class="shop_character_bag">
+                    <%= image_tag("", id:"wearing_bag") %>
+                  </div>
+                <% end %>
+                <%= image_tag("character/p_character.png", id:"shop_main_character") %>
+              </div>
+            </div>
+            <div class="col-xs-3">
+
+            </div>
+          </div>
+        </div>
+        
+        <%if (current_user.island != 0) && (current_user.island != 17)%>
+        <div class="col-xs-12 shop_item_info">
+          <div class="row">
+            <div class="col-xs-4 shop_item_holder">
+              <div class="shop_item_imgholder">
+                <%= image_tag("character/items/hat_#{current_user.island}_big.png") %>
+              </div>
+            </div>
+            <div class="col-xs-8 shop_item_detail_info">
+              <div class="shop_item_setting">
+                <span class="shop_coin"><%= image_tag("icon/coin.png") %> Price : </span><span class="price"> <%=@hats[0].need_coin%> </span>
+                <form method="post" action="/shop/buy_hat">
+                  <input id="shop_hat_price" type="hidden" name="shop_hat_price" value="<%=@hats[0].need_coin%>"></input>
+                  <input type="hidden" name="shop_hat" value="<%=current_user.island%>"></input>
+                  <button class="set_btn" onclick="return buy_hat();">Buy</button>
+                </form>
+                <span class="shop_coin"><%= image_tag("icon/coin.png") %></span><span class="user_coin">MY COIN : <%=current_user.coin%></span>
+                <button class="set_btn" onclick="try_hat()">Try</button>
+              </div>
+              <div class="shop_item_description">
+                <p class="shop_item_title"><%=@hats[0].name%></p>
+                <p class="shop_item_detail"><%=@hats[0].description%></p>
+                <p class="shop_item_effect">
+                  <span>착용 효과 </span>
+                  <%if @hats[0].coin_percent !=0.0%>
+                    <span>코인 <%=@hats[0].coin_percent%>%</span>
+                  <%end%>
+                  <%if @hats[0].exp_percent != 0.0%>
+                    <span>경험치 <%=@hats[0].exp_percent%>%</span>
+                  <%end%>
+                  <br>
+                  <span>If you wear it with the same kind of clothes, it will be even effective!</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 shop_item_info">
+          <div class="row">
+            <div class="col-xs-4 shop_item_holder">
+              <div class="shop_item_imgholder">
+                <%= image_tag("character/items/clothes_#{current_user.island}_big.png") %>
+              </div>
+            </div>
+            <div class="col-xs-8 shop_item_detail_info">
+              <div class="shop_item_setting">
+                <span class="shop_coin"><%= image_tag("icon/coin.png") %> Price : </span><span class="price"> <%=@dresses[0].need_coin%> </span>
+                <form method="post" action="/shop/buy_clothes">
+                  <input id="shop_clothes_price" type="hidden" name="shop_clothes_price" value="<%=@dresses[0].need_coin%>"></input>
+                  <input type="hidden" name="shop_clothes" value="<%=current_user.island%>"></input>
+                  <button class="set_btn" onclick="return buy_clothes();">Buy</button>
+                </form>
+                <span class="shop_coin"><%= image_tag("icon/coin.png") %></span><span class="user_coin">MY COIN : <%=current_user.coin%></span>
+                <button class="set_btn" onclick="try_clothes()">Try</button>
+              </div>
+              <div class="shop_item_description">
+                <p class="shop_item_title"><%=@dresses[0].name%></p>
+                <p class="shop_item_detail"><%=@dresses[0].description%></p>
+                <p class="shop_item_effect">
+                  <span>착용 효과 </span>
+                  <%if @dresses[0].coin_percent !=0.0%>
+                    <span>코인 <%=@dresses[0].coin_percent%>%</span>
+                  <%end%>
+                  <%if @dresses[0].exp_percent != 0.0%>
+                    <span>경험치 <%=@dresses[0].exp_percent%>%</span>
+                  <%end%>
+                  <br>
+                  <span>If you wear it with the same kind of hats, it will be even effective!</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 shop_item_info">
+          <div class="row">
+            <div class="col-xs-4 shop_item_holder">
+              <div class="shop_item_imgholder">
+                <%= image_tag("character/items/bag_#{current_user.island}_big.png") %>
+              </div>
+            </div>
+            <div class="col-xs-8 shop_item_detail_info">
+              <div class="shop_item_setting">
+                <span class="shop_coin"><%= image_tag("icon/coin.png") %> Price : </span><span class="price"> <%=@bags[0].need_coin%> </span>
+                <form method="post" action="/shop/buy_bag">
+                  <input id="shop_bag_price" type="hidden" name="shop_bag_price" value="<%=@bags[0].need_coin%>"></input>
+                  <input type="hidden" name="shop_bag" value="<%=current_user.island%>"></input>
+                  <button class="set_btn" onclick="return buy_bag();">Buy</button>
+                </form>
+                <span class="shop_coin"><%= image_tag("icon/coin.png") %></span><span class="user_coin">MY COIN : <%=current_user.coin%></span>
+                <button class="set_btn" onclick="try_bag()">Try</button>
+              </div>
+              <div class="shop_item_description">
+                <p class="shop_item_title"><%=@bags[0].name%></p>
+                <p class="shop_item_detail"><%=@bags[0].description%></p>
+                <p class="shop_item_effect">
+                <span>착용 효과 </span>
+                  <%if @bags[0].other_percent !=0.0%>
+                    <span>최대 펫 수 + <%=@bags[0].other_percent.to_i%></span>
+                  <%end%>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%end%>
+        
+        <%if(current_user.island != 17)%>
+        <div class="col-xs-12 shop_item_info">
+          <div class="row">
+            <div class="col-xs-4 shop_item_holder">
+              <div class="shop_item_imgholder">
+                <%= image_tag("character/items/ticket#{current_user.island+1}.png") %>
+              </div>
+            </div>
+            <div class="col-xs-8 shop_item_detail_info">
+              <div class="shop_item_setting">
+                <span class="shop_coin"><%= image_tag("icon/coin.png") %> Price : </span><span class="price"> <%=@tickets[0].need_coin%> </span>
+                <form method="post" action="/shop/buy_ticket">
+                  <input id="shop_ticket_price" type="hidden" name="shop_ticket_price" value="<%=@tickets[0].need_coin%>"></input>
+                  <input type="hidden" name="shop_ticket" value="<%=current_user.island + 1%>"></input>
+                  <button type="submit" class="set_btn" onclick="return buy_ticket();">Buy</button>
+                </form>
+                <span class="shop_coin"><%= image_tag("icon/coin.png") %></span><span class="user_coin">MY COIN : <%=current_user.coin%></span><br>
+              </div>
+              <div class="shop_item_description">
+                <p class="shop_item_title"><%=@tickets[0].name%></p>
+                <p class="shop_item_detail"><%=@tickets[0].description%></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%end%>
+
+      </div>
+    </div>
+  </section>
+  <footer>
+      <div class="row">
+        <div class="col-xs-12 icons">
+          <div class="row">
+            <div class="col-xs-2 Home">
+                <a href="main"><%= image_tag("icon/ic1_01.png") %></a>
+            </div>
+            <div class="col-xs-2 Map">
+              <a href="map"><%= image_tag("icon/ic2_01.png") %></a>
+            </div>
+            <div class="col-xs-2 Bag">
+              <a href="bag_item"><%= image_tag("icon/ic3_01.png") %></a>
+            </div>
+            <div class="col-xs-2 Pet">
+              <a href="pet"><%= image_tag("icon/ic4_01.png") %></a>
+            </div>
+            <div class="col-xs-2 Shop">
+              <a href="shop"><%= image_tag("icon/ic5_02.png") %></a>
+            </div>
+            <div class="col-xs-2 Setting">
+              <div class="dropdown">
+             <%= image_tag("icon/ic6_01.png", :class=>"dropbtn", :onclick => "dropup_function()") %>            
+            <div class="dropdown-content" id="myDropdown">
+              <a href="/users/sign_out"><%= image_tag("icon/ic8_01.png") %></a>
+              <a href="/etc/rank"><%= image_tag("icon/ic9_01.png") %></a>
+              <a href="/setting"><%= image_tag("icon/ic7_01.png") %></a>
+              <a href="/etc/friend"><%= image_tag("icon/ic10_01.png") %></a>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+</body>
+<script>
+  function buy_pet(){
+    if(confirm("펫을 구출하시겠습니까?")){
+      var price = document.getElementsByClassName("price");
+      if(price[0].innerHTML > <%=current_user.coin%>){
+        alert("코인이 부족합니다. 구출에 실패했습니다.")
+        return false;
+      }
+      else{
+        console.log(<%=@user_max_pet%>);
+        if(<%=@user_max_pet%> < <%=@pet_count%>){
+          alert("가방이 좁아요! 구출에 실패했습니다.")
+          return false;
+          // pet에 delete - 버튼 두개 (데리고 다니기, 풀어주기 -> DB삭제)
+        }
+        else{
+          var on_buy_pet_page = setTimeout(on_page, 0000);
+          
+          function on_page(){
+            var body = document.body;
+            body.scrollTop = "0";
+            $("#shop_page").fadeOut(0000);
+            $("#buy_pet_page").fadeIn(500);
+            var success_buy = setTimeout(on_success_page, 5000)
+          }
+          function on_success_page(){
+            $("#buy_pet_page").fadeOut(1000);
+            $("#success_get_pet").fadeIn(1000);
+          }
+          return true;
+        }
+      }
+    }
+    else{
+      return false;
+    }
+  }
+
+
+  function buy_hat(){
+   if(confirm("모자을 구입하시겠습니까?")){
+      var price = document.getElementsByClassName("price");
+      if(price[1].innerHTML > <%=current_user.coin%>){
+        alert("코인이 부족합니다. 구입이 취소됩니다.")
+        return false;
+      }
+      else{
+        var can_buy_hat = <%=@can_buy_hat%>
+        if(can_buy_hat == 1){
+          return true;  
+        }
+        else{
+          alert("이미 보유한 모자입니다. 구입이 취소됩니다.")
+          return false;
+        }
+      }
+    }
+    else{
+      return false;
+    }
+  }
+  
+  function try_hat(){
+    var wearing_hat = document.getElementById("wearing_hat");
+    wearing_hat.src = "/assets/character/items/hat_<%=current_user.island%>_small.png";
+  }
+
+  function buy_clothes(){
+    if(confirm("옷을 구입하시겠습니까?")){
+      var price = document.getElementsByClassName("price");
+      if(price[2].innerHTML > <%=current_user.coin%>){
+        alert("코인이 부족합니다. 구입이 취소됩니다.")
+        return false;
+      }
+      else{
+        var can_buy_clothes = <%=@can_buy_clothes%>
+        if(can_buy_clothes == 1){
+          return true;  
+        }
+        else{
+          alert("이미 보유한 옷입니다. 구입이 취소됩니다.")
+          return false;
+        }
+      }
+    }
+    else{
+      return false;
+    }
+
+  }
+  function try_clothes(){
+    var wearing_clothes = document.getElementById("wearing_clothes");
+    wearing_clothes.src = "/assets/character/items/clothes_<%=current_user.island%>_small.png";
+  }
+
+
+  function buy_bag(){
+    if(confirm("가방을 구입하시겠습니까?")){
+      var price = document.getElementsByClassName("price");
+      if(price[3].innerHTML > <%=current_user.coin%>){
+        alert("코인이 부족합니다. 구입이 취소됩니다.")
+        return false;
+      }
+      else{
+        var can_buy_bag = <%=@can_buy_bag%>
+        if(can_buy_bag == 1){
+          return true;  
+        }
+        else{
+          alert("이미 보유한 가방입니다. 구입이 취소됩니다.")
+          return false;
+        }
+      }
+    }
+    else{
+      return false;
+    }
+
+  }
+  function try_bag(){
+    var wearing_bag = document.getElementById("wearing_bag");
+    wearing_bag.src = "/assets/character/items/bag_<%=current_user.island%>_small.png";
+  }
+
+  function buy_ticket(){
+    if(confirm("티켓을 구입하시겠습니까?")){
+      console.log(<%=@tickets[0].other_percent%>);
+      if(<%=@tickets[0].other_percent.to_i%> > <%=current_user.level%>){
+        alert("구입 할 수 있는 레벨이 아닙니다. 레벨업을 해주세요. \n필요레벨 : <%=@tickets[0].other_percent.to_i%>")
+        return false;
+      }
+      else{
+        var price = document.getElementsByClassName("price");
+        if(price[4].innerHTML > <%=current_user.coin%>){
+          alert("코인이 부족합니다. 구입이 취소됩니다.")
+          return false;
+        }
+        else{
+          var can_buy_ticket = <%=@can_buy_ticket%>
+          if(can_buy_ticket == 1){
+            return true;  
+          }
+          else{
+            alert("이미 보유한 티켓입니다. 구입이 취소됩니다.")
+            return false;
+          }
+        }
+      }
+    }
+    else{
+      return false;
+    }
+  }
+</script>

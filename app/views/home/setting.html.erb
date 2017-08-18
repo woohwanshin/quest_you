@@ -1,0 +1,84 @@
+<body id="bag_item_body">
+  <header>
+    <div class="current_island_name_holder">
+      <p id="bag_item_page_name">INFO</p>
+    </div>
+  </header>
+  <section id="bag_item_section">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 Made_By">
+          <p class="title"> MADE BY</p>
+          강다예 배준한 성민규<br>신우환 이민주 이주하
+        </div>
+        <div class="col-xs-12 how_to_play">
+          <p class="title">HOW TO PLAY</p>
+          <div class="play_info">
+            Daily Quest에 설정된 퀘스트를 수행해보세요.<br>
+            Custom Quest를 제작하고 나만의 To do list를 만들어보세요.<br>
+            Quest를 수행하면 버튼을 눌러 완료해보세요.<br>
+            Quest를 완료하면 경험치와 코인을 얻습니다.<br><br>
+            
+            레벨이 올라감에 따라 갈 수 있는 섬이 늘어납니다.<br>
+            획득한 코인으로 다른 섬으로 이동가능한 티켓을 구입할 수 있습니다.<br>
+            각 섬의 삼점에서는 해당 섬의 사냥꾼에게 포획된 동물을 해방해 줄 수 있는 증명서를 구매할 수 있습니다.<br>
+            동물들에게 자유를 찾아주세요! <br>
+            자유를 되찾은 동물들은 가끔 여러분을 따라가려 할 수도 있습니다.<br>
+            당신을 따라온 동물들에게 이름을 지어주세요. 동물들은 모두 성격이 다릅니다.<br>
+            여러분을 따라온 동물들 중 한 마리를 데리고 다닐 수도 있습니다.<br><br>
+            
+            퀘스트를 통해 획득한 코인으로 여러 동물들을 닮은 모자와 옷을 구매할 수도 있습니다. <br><br>
+            
+            여러분의 공간에서 지낼 수 있는 동물들의 수는 한정되어 있습니다.<br>
+            가방을 구매하여 그 수를 늘릴 수 있습니다.<br><br>
+            
+            여러분은 QU를 수행해나가면서 여러 가지 칭호를 얻기도 합니다. <br>
+            이 칭호는 경험치 획득량을 증가시킬 수도 감소시킬 수도 있습니다. <br>
+            모자와 옷 또한 특별한 능력이 있습니다.<br><br>
+            
+            랭킹 시스템을 통해서 유저들의 랭킹을 확인 할 수 있습니다.<br>
+            
+            QU사용자들은 서로 친구를 맺을 수 있고, 실시간으로 친구의 모습과 그의 동물친구를 확인할 수 있습니다.<br><br>
+            
+            --준비중--<br>
+            파티퀘스트섬에서 동료, 친구들과 함께 파티퀘스트를 만들 수 있습니다.<br>
+            서로에게 도움이 되는 여러 퀘스트를 만들고 수행하여 보람찬 기분을 느껴보세요. <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="row">
+      <div class="col-xs-12 icons">
+        <div class="row">
+          <div class="col-xs-2 Home">
+              <a href="main"><%= image_tag("icon/ic1_01.png") %></a>
+          </div>
+          <div class="col-xs-2 Map">
+            <a href="map"><%= image_tag("icon/ic2_01.png") %></a>
+          </div>
+          <div class="col-xs-2 Bag">
+            <a href="bag_item"><%= image_tag("icon/ic3_01.png") %></a>
+          </div>
+          <div class="col-xs-2 Pet">
+            <a href="pet"><%= image_tag("icon/ic4_01.png") %></a>
+          </div>
+          <div class="col-xs-2 Shop">
+            <a href="shop"><%= image_tag("icon/ic5_01.png") %></a>
+          </div>
+          <div class="col-xs-2 Setting">
+            <div class="dropdown">
+           <%= image_tag("icon/ic6_01.png", :class=>"dropbtn", :onclick => "dropup_function()") %>            
+          <div class="dropdown-content" id="myDropdown">
+            <a href="/users/sign_out"><%= image_tag("icon/ic8_01.png") %></a>
+              <a href="/etc/rank"><%= image_tag("icon/ic9_01.png") %></a>
+              <a href="/setting"><%= image_tag("icon/ic7_02.png") %></a>
+              <a href="/etc/friend"><%= image_tag("icon/ic10_01.png") %></a>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>

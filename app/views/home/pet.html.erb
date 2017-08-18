@@ -1,0 +1,280 @@
+<body id="pet_body">
+  <header>
+    <div class="current_island_name_holder">
+      <p id="pet_page_name">My Pets</p>
+    </div>
+  </header>
+  <section id="pet_section">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 character_info">
+          <div class="row">
+            <div class="col-xs-5">
+              <div class="character_img">
+                <% if current_user.hat != 0 %>
+                  <div class="character_hat">
+                    <%= image_tag("character/items/hat_#{current_user.hat}_small.png", id:"wearing_hat") %>
+                  </div>
+                <%else%>
+                  <div class="character_hat">
+                    <%= image_tag("", id:"wearing_hat") %>
+                  </div>
+                <%end%>
+                  
+                <% if current_user.dress != 0 %>
+                  <div class="character_clothes">
+                    <%= image_tag("character/items/clothes_#{current_user.dress}_small.png", id:"wearing_clothes") %>
+                  </div>
+                <%else%>
+                  <div class="character_clothes">
+                    <%= image_tag("", id:"wearing_clothes") %>
+                  </div>
+                <% end %>
+                
+                <% if current_user.bag != 0 %>
+                  <div class="character_bag">
+                    <%= image_tag("character/items/bag_#{current_user.bag}_small.png", id:"wearing_bag") %>
+                  </div>
+                <%else%>
+                  <div class="character_bag">
+                    <%= image_tag("", id:"wearing_bag") %>
+                  </div>
+                <% end %>
+                <%= image_tag("character/p_character.png", id:"main_character") %>
+              </div>
+            </div>
+            <div class="col-xs-3">
+              <div class="user_name_holder">
+                <p id="title_name">
+                  <% if current_user.title_name == 0 %>
+                    초심자
+                  <% elsif current_user.title_name == 1 %>
+                    행운아
+                  <% elsif current_user.title_name == 2 %>
+                    해결사  
+                  <% elsif current_user.title_name == 3 %>
+                    불한당  
+                  <% elsif current_user.title_name == 4 %>
+                    굿보이
+                  <% elsif current_user.title_name == 5 %>
+                    어린왕자
+                  <% elsif current_user.title_name == 6 %>
+                    모두의친구
+                  <% elsif current_user.title_name == 7 %>
+                    수의사
+                  <% elsif current_user.title_name == 8 %>
+                    영웅
+                  <% elsif current_user.title_name == 9 %>
+                    빛의인도자
+                  <% elsif current_user.title_name == 10 %>
+                    애묘인
+                  <% elsif current_user.title_name == 11 %>
+                    살신성인
+                  <% elsif current_user.title_name == 12 %>
+                    마라토너
+                  <% elsif current_user.title_name == 13 %>
+                    게으름뱅이
+                  <% elsif current_user.title_name == 14 %>
+                    외톨이
+                  <% elsif current_user.title_name == 15 %>
+                    
+                  <% elsif current_user.title_name == 16 %>
+                    
+                  <% elsif current_user.title_name == 17 %>
+                    
+                  <% elsif current_user.title_name == 18 %>
+                    
+                  <% elsif current_user.title_name == 19 %>
+                    
+                  <% elsif current_user.title_name == 20 %>
+                    
+                  <% elsif current_user.title_name == 21 %>
+                    
+                  <% elsif current_user.title_name == 22 %>
+                    
+                  <% elsif current_user.title_name == 23 %>
+                    
+                  <% elsif current_user.title_name == 24 %>
+                    
+                  <% elsif current_user.title_name == 25 %>
+                    
+                  <% elsif current_user.title_name == 26 %>
+                    
+                  <% elsif current_user.title_name == 27 %>
+                    
+                  <% elsif current_user.title_name == 28 %>
+                    
+                  <% elsif current_user.title_name == 29 %>
+                    
+                  <% elsif current_user.title_name == 30 %>
+                    
+                  <% elsif current_user.title_name == 31 %>
+                    시바맨
+                  <% elsif current_user.title_name == 32 %>
+                    냥냥펀치
+                  <% elsif current_user.title_name == 33 %>
+                    도토리나무
+                  <% elsif current_user.title_name == 34 %>
+                    엄마사슴
+                  <% elsif current_user.title_name == 35 %>
+                    거북왕
+                  <% elsif current_user.title_name == 36 %>
+                    앵무여왕
+                  <% elsif current_user.title_name == 37 %>
+                    부엉부엉
+                  <% elsif current_user.title_name == 38 %>
+                    당근농장주
+                  <% elsif current_user.title_name == 39 %>
+                    플래시
+                  <% elsif current_user.title_name == 40 %>
+                    폭스퀸
+                  <% elsif current_user.title_name == 41 %>
+                    쿵푸팬더
+                  <% elsif current_user.title_name == 42 %>
+                    코카콜라
+                  <% elsif current_user.title_name == 43 %>
+                    핑구
+                  <% elsif current_user.title_name == 44 %>
+                    라이온킹
+                  <% elsif current_user.title_name == 45 %>
+                    타이거마스크
+                  <% elsif current_user.title_name == 46 %>
+                    드래곤마스터
+                  <% end %>
+                </p>
+                <p id="user_id"><%= current_user.email %></p>
+              </div>
+              <div class="animal_img">
+                <% if current_user.pet == 0 %>  <!-- 현재 유저의 펫이 0이라면 -->
+                  <%= image_tag("animal/animal_0.png", id:"my_current_pet") %>
+                  <p id="my_pet_name">EMPTY</p><!--현재 유저의 펫의 이름-->
+                <% else %>
+                  <% animal_obj = Animal.find(current_user.pet) %>
+                  <%= image_tag("animal/animal_#{animal_obj.species}.png", id:"my_current_pet") %>
+                  <p id="my_pet_name"><%= animal_obj.name %></p>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <div class="character_status">
+                <div class="character_LV">
+                  <p id="user_level">LV : <%=current_user.level%></p> 
+                </div>
+                <p class="status_name">EXP</p>
+                <div class="exp_gage">
+                  <div id="current_exp_gage"></div>
+                </div>
+                <!-- 경험치 -->
+                <P class="exp_count"> <span id="current_exp"><%=current_user.current_exp%></span> / <span id="max_exp"><%=current_user.need_exp%></span></P>
+                <p class="status_name">COIN</p>
+                <!-- 코인 -->
+                <p class="gage"> <%=current_user.coin%> <%= image_tag("icon/coin.png") %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 pet_welcome">
+          <p>Select your friend today</p>
+        </div>
+        <div class="col-xs-12 save_holder">
+          <form action="/pet/seleting" method="post" class="pet_form">
+            <input id="save_pet_input" type="hidden" name="pet" value="<%=current_user.pet%>"></input>
+            <button class="pet_btn" type="submit">Accompany</button>
+          </form>
+          <form action="/pet/releasing" method="post" class="pet_form">
+            <input id="release_pet_input" type="hidden" name="pet" value="<%=current_user.pet%>"></input>
+            <button class="pet_btn" type="submit">Release</button>
+          </form>
+        </div>
+        <div class="col-xs-12 pet_info">
+          <div class="row">
+            <%@my_animal_count = 0%>
+            <% @animals.each do |animal| %>
+              <%if animal.user_id == current_user.id%>
+                <%if current_user.pet == animal.id%>
+                  <div class="col-xs-4 pet_list active_pet">
+                <%else%>
+                  <div class="col-xs-4 pet_list">
+                <%end%>
+                  <div class="pet_imgholder">
+                    <%= image_tag("animal/animal_#{animal.species}.png", :onClick => "select_pet(#{animal.species},#{animal.id},#{@my_animal_count})")  %>
+                  </div>
+                  <div class="pet_detail_info">
+                    <p class="pet_title">
+                      <%animal_character = @menus.where('category = ? AND type_num = ?', 'pet_character', animal.character)[0]%>
+                      <span class="pet_title_name"><%= animal_character.name %></span>
+                      <%if animal_character.coin_percent != 0%>
+                        <span class="pet_effect">COIN <%= animal_character.coin_percent %></span>
+                      <%end%>
+                      <%if animal_character.exp_percent != 0%>
+                        <span class="pet_effect">EXP <%= animal_character.exp_percent %></span>
+                      <%end%>
+                      
+                    </p>
+                    <p class="pet_name"><%= animal.name %></p>
+                    <p class="pet_day"><%= animal.created_at.year %>.<%= animal.created_at.month %>.<%= animal.created_at.day %></p>
+                  </div>
+                </div>
+                <%@my_animal_count += 1%>
+              <%end%>
+            <% end %>      
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="row">
+      <div class="col-xs-12 icons">
+        <div class="row">
+          <div class="col-xs-2 Home">
+              <a href="main"><%= image_tag("icon/ic1_01.png") %></a>
+          </div>
+          <div class="col-xs-2 Map">
+            <a href="map"><%= image_tag("icon/ic2_01.png") %></a>
+          </div>
+          <div class="col-xs-2 Bag">
+            <a href="bag_item"><%= image_tag("icon/ic3_01.png") %></a>
+          </div>
+          <div class="col-xs-2 Pet">
+            <a href="pet"><%= image_tag("icon/ic4_02.png") %></a>
+          </div>
+          <div class="col-xs-2 Shop">
+            <a href="shop"><%= image_tag("icon/ic5_01.png") %></a>
+          </div>
+          <div class="col-xs-2 Setting">
+            <div class="dropdown">
+           <%= image_tag("icon/ic6_01.png", :class=>"dropbtn", :onclick => "dropup_function()") %>            
+          <div class="dropdown-content" id="myDropdown">
+            <a href="/users/sign_out"><%= image_tag("icon/ic8_01.png") %></a>
+            <a href="/etc/rank"><%= image_tag("icon/ic9_01.png") %></a>
+            <a href="/setting"><%= image_tag("icon/ic7_01.png") %></a>
+            <a href="/etc/friend"><%= image_tag("icon/ic10_01.png") %></a>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+<script>
+  //
+  var character_img = document.getElementById("main_character");
+  var character_hat = document.getElementsByClassName("character_hat");
+  var character_clothes = document.getElementsByClassName("character_clothes");
+  var character_bag = document.getElementsByClassName("character_bag");
+  
+  var get_width = character_img.width;
+  
+  console.log(get_width);
+  character_hat[0].style.width = get_width+"px";
+  character_clothes[0].style.width = get_width+"px";
+  character_bag[0].style.width = get_width+"px";
+
+  //경험치바
+  var current_exp = document.getElementById("current_exp")
+  var need_exp = document.getElementById("max_exp")
+    
+  var width_percent = (parseFloat(current_exp.innerHTML) / parseFloat(need_exp.innerHTML)) * 100;
+  document.getElementById("current_exp_gage").style.width = width_percent + "%";
+</script>

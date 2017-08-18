@@ -1,0 +1,255 @@
+<body id="friend_body">
+  <header>
+    <div class="friend_name_holder">
+      <p id="friend_page_name">Friend</p>
+    </div>
+  </header>
+  <section id="friend_section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 friend_classifier">
+                <button class="classifier_friend_btn friend_active_btn" onclick="click_Myfriend_btn()">My Friend</button>
+                <button class="classifier_friend_btn" onclick="click_message_btn()">Message</button>
+                <button class="classifier_friend_btn" onclick="click_find_btn()">Search</button>
+            </div>
+            <div class="col-xs-12 find_input_field">
+                <input type="text" id="find_input" onkeyup="search()"></input>
+            </div>
+            <div class="col-xs-12 my_friend">
+                <div class="row">
+                    <%count = 0%>
+                    <%background = 0%>
+                    <% @already_active_friends.each do |friend| %>
+                        <%if (count%2) == 0%>
+                            <%background += 1%>
+                        <%end%>
+                        <%if (background%2) == 0%>
+                            <div class="col-xs-6 other_people2">
+                        <%else%>
+                            <div class="col-xs-6 other_people">
+                        <%end%>
+                            <div class="row">
+                                <div class="col-xs-6 top23_character">
+                                    <% if User.find(friend.receiver_id).hat != 0 %>
+                                        <div class="top23_character_hat">
+                                        <%= image_tag("character/items/hat_#{User.find(friend.receiver_id).hat}_small.png") %>   
+                                        </div>
+                                    <%end%>
+                                    <% if User.find(friend.receiver_id).dress != 0 %>
+                                        <div class="top23_character_clothes">
+                                            <%= image_tag("character/items/clothes_#{User.find(friend.receiver_id).dress}_small.png") %>    
+                                        </div>
+                                    <%end%>
+                                    <% if User.find(friend.receiver_id).bag != 0 %>
+                                        <div class="top23_character_clothes">
+                                            <%= image_tag("character/items/bag_#{User.find(friend.receiver_id).bag}_small.png") %>    
+                                        </div>
+                                    <%end%>
+                                    <div class="top23_character_pet">
+                                        <% if User.find(friend.receiver_id).pet == 0 %>  <!-- 현재 유저의 펫이 0이라면 -->
+                                          <%= image_tag("animal/animal_0.png") %>
+                                        <% else %>
+                                            <% animal_number = Animal.find(User.find(friend.receiver_id).pet) %>
+                                            <%= image_tag("animal/animal_#{animal_number.species}.png") %>
+                                        <% end %>
+                                    </div>
+                                    <%= image_tag("character/p_character.png") %>
+                                </div>
+                                <div class="col-xs-6 top23_info">
+                                   <p class="other_rank_LV">LV : <%=User.find(friend.receiver_id).level%></p>
+                                   <p class="rank_user_name"><%=User.find(friend.receiver_id).email%></p>
+                                </div>
+                            </div>
+                        </div>
+                        <%count += 1%>
+                     <% end %>
+                         <!-- 쟤가 친구 신청해서 친구 됐어. -->
+                    <% @already_passive_friends.each do |friend| %>
+                        <%if (count%2) == 0%>
+                            <%background += 1%>
+                        <%end%>
+                        <%if (background%2) == 0%>
+                            <div class="col-xs-6 other_people2">
+                        <%else%>
+                            <div class="col-xs-6 other_people">
+                        <%end%>
+                            <div class="row">
+                                <div class="col-xs-6 top23_character">
+                                    <% if User.find(friend.sender_id).hat != 0 %>
+                                        <div class="top23_character_hat">
+                                        <%= image_tag("character/items/hat_#{User.find(friend.sender_id).hat}_small.png") %>   
+                                        </div>
+                                    <%end%>
+                                    <% if User.find(friend.sender_id).dress != 0 %>
+                                        <div class="top23_character_clothes">
+                                            <%= image_tag("character/items/clothes_#{User.find(friend.sender_id).dress}_small.png") %>    
+                                        </div>
+                                    <%end%>
+                                    <div class="top23_character_pet">
+                                        <% if User.find(friend.sender_id).pet == 0 %>  <!-- 현재 유저의 펫이 0이라면 -->
+                                          <%= image_tag("animal/animal_0.png") %>
+                                        <% else %>
+                                            <% animal_number = Animal.find(User.find(friend.sender_id).pet) %>
+                                            <%= image_tag("animal/animal_#{animal_number.species}.png") %>
+                                        <% end %>
+                                    </div>
+                                    <%= image_tag("character/p_character.png") %>
+                                </div>
+                                <div class="col-xs-6 top23_info">
+                                   <p class="other_rank_LV">LV : <%=User.find(friend.sender_id).level%></p>
+                                   <p class="rank_user_name"><%=User.find(friend.sender_id).email%></p>
+                                </div>
+                            </div>
+                        </div>
+                        <%count += 1%>
+                    <% end %>
+                </div>
+            </div>
+            
+            
+            <div class="col-xs-12 message">
+                <div class="row">
+                    <%count2=0%>
+                    <%background2 =0%>
+                    <% @waiting_passive_friends.each do |friend| %>
+                        <%if (count2%2) == 0%>
+                            <%background2 += 1%>
+                        <%end%>
+                        <%if (background2%2) == 0%>
+                            <div class="col-xs-6 other_people2">
+                        <%else%>
+                            <div class="col-xs-6 other_people">
+                        <%end%>
+                            <div class="row">
+                                <div class="col-xs-6 top23_character">
+                                    <% if User.find(friend.sender_id).hat != 0 %>
+                                        <div class="top23_character_hat">
+                                        <%= image_tag("character/items/hat_#{User.find(friend.sender_id).hat}_small.png") %>   
+                                        </div>
+                                    <%end%>
+                                    <% if User.find(friend.sender_id).dress != 0 %>
+                                        <div class="top23_character_clothes">
+                                            <%= image_tag("character/items/clothes_#{User.find(friend.sender_id).dress}_small.png") %>    
+                                        </div>
+                                    <%end%>
+                                    <div class="top23_character_pet">
+                                        <% if User.find(friend.sender_id).pet == 0 %>  <!-- 현재 유저의 펫이 0이라면 -->
+                                          <%= image_tag("animal/animal_0.png") %>
+                                        <% else %>
+                                            <% animal_number = Animal.find(User.find(friend.sender_id).pet) %>
+                                            <%= image_tag("animal/animal_#{animal_number.species}.png") %>
+                                        <% end %>
+                                    </div>
+                                    <%= image_tag("character/p_character.png") %>
+                                </div>
+                                <div class="col-xs-6 top23_info">
+                                   <p class="other_rank_LV">LV : <%=User.find(friend.sender_id).level%></p>
+                                   <p class="rank_user_name"><%=User.find(friend.sender_id).email%></p>
+                                   <form action="/etc/friend/accept" method="post" class="form_custom">
+                                        <input id = "" type="hidden" name="friend_id" value = "<%=friend.id%>"></input>
+                                	    <button type ="submit" class ="select_btn" name="accept" value="1">수락</button>
+                                	    <button type ="submit" class ="select_btn" name="accept" value="0">거절</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <%count2 += 1%>
+                    <% end %>
+                </div>
+            </div>
+            
+             <% @users.each do |user| %>
+                <div class="col-xs-6 other_people_searcing for_searching">
+                    <div class="row">
+                        <div class="col-xs-6 top23_character">
+                            <% if user.hat != 0 %>
+                                <div class="top23_character_hat">
+                                <%= image_tag("character/items/hat_#{user.hat}_small.png") %>   
+                                </div>
+                            <%end%>
+                            <% if user.dress != 0 %>
+                                <div class="top23_character_clothes">
+                                    <%= image_tag("character/items/clothes_#{user.dress}_small.png") %>    
+                                </div>
+                            <%end%>
+                            <div class="top23_character_pet">
+                                <% if user.pet == 0 %>  <!-- 현재 유저의 펫이 0이라면 -->
+                                  <%= image_tag("animal/animal_0.png") %>
+                                <% else %>
+                                    <% animal_number = Animal.find(user.pet) %>
+                                    <%= image_tag("animal/animal_#{animal_number.species}.png") %>
+                                <% end %>
+                            </div>
+                            <%= image_tag("character/p_character.png") %>
+                        </div>
+                        <div class="col-xs-6 top23_info">
+                           <p class="other_rank_LV">LV : <%=user.level%></p>
+                           <p class="rank_user_name"><%=user.email%></p>
+                           <form action="/etc/friend/request" method="post" class="form_custom">
+                            <input id = "" type="hidden" name="receiver_id" value = "<%=user.id%>"></input>
+                            <button type ="submit" class ="select_btn">신청</button>
+                           </form>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+  </section>
+  <footer>
+      <div class="row">
+        <div class="col-xs-12 icons">
+          <div class="row">
+            <div class="col-xs-2 Home">
+                <a href="main"><%= image_tag("icon/ic1_01.png") %></a>
+            </div>
+            <div class="col-xs-2 Map">
+              <a href="map"><%= image_tag("icon/ic2_01.png") %></a>
+            </div>
+            <div class="col-xs-2 Bag">
+              <a href="bag_item"><%= image_tag("icon/ic3_01.png") %></a>
+            </div>
+            <div class="col-xs-2 Pet">
+              <a href="pet"><%= image_tag("icon/ic4_01.png") %></a>
+            </div>
+            <div class="col-xs-2 Shop">
+              <a href="shop"><%= image_tag("icon/ic5_01.png") %></a>
+            </div>
+            <div class="col-xs-2 Setting">
+              <div class="dropdown">
+             <%= image_tag("icon/ic6_01.png", :class=>"dropbtn", :onclick => "dropup_function()") %>            
+              <div class="dropdown-content" id="myDropdown">
+              <a href="/users/sign_out"><%= image_tag("icon/ic8_01.png") %></a>
+              <a href="/etc/rank"><%= image_tag("icon/ic9_01.png") %></a>
+              <a href="/setting"><%= image_tag("icon/ic7_01.png") %></a>
+              <a href="/etc/friend"><%= image_tag("icon/ic10_02.png") %></a>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+</body>
+<script>
+    function search(){
+        var keyboard = document.getElementById("find_input");
+        var input = keyboard.value;
+        var search_user = document.getElementsByClassName("for_searching");
+        for(var i=0; i<search_user.length; i++){
+            var p = search_user[i].getElementsByClassName("rank_user_name");
+            var title = p[0].innerHTML;
+            search_user[i].style.display = "none";
+            if(title.indexOf(input)>-1){
+              search_user[i].style.display = "block";
+            }
+            
+        }
+        if(input.length == 0){
+            for(var j=0; j<search_user.length; j++){
+              search_user[j].style.display = "block";
+            }
+        }
+        
+    }
+    
+</script>

@@ -1,0 +1,150 @@
+.friend_name_holder{
+  margin-top:20px;
+  text-align: center;
+  font-weight: 600;
+  font-family: firstFont;
+  margin-bottom:  0px;
+}
+#friend_page_name{
+  font-family: secondFont, thirdFont;
+  font-size:13px;
+  font-weight: 500;
+  color: #FF5974;
+  letter-spacing:-1px;
+}
+#friend_section{
+  height:100%;
+  margin-bottom: 10vh;
+  font-family: firstFont, thirdFont;
+  max-width: 420px;
+  min-height:100vh;
+}
+.friend_classifier{
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  background-color: #6A84EF;
+  margin-bottom:10px;
+}
+.classifier_friend_btn{
+  font-size:15px;
+  color: #DAFFDB;
+  background-color: #B8C6FF;
+  border: 0.5px solid #7EFACF;
+  border-radius: 8px;
+  margin-left: 1px;
+  margin-right: 1px;
+  width:22%
+}
+
+.friend_active_btn{
+  font-size:15px;
+  color: #FF5974;
+  background-color: #7EFACF;
+  border: 0.5px solid #6A84EF;
+  border-radius: 8px;
+  margin-left: 1px;
+  margin-right: 1px;
+  width:22%
+}
+.firend_active_btn:focus{
+  outline: none;
+}
+
+.find_input_field{
+    text-align:center;
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+#find_input{
+  font-family: secondFont, thirdFont;
+  text-decoration: none;
+  border: none;
+  border-bottom: 2px solid #B8C6FF;
+  background-color: transparent;
+  width:40%;
+  font-size:12px;
+  transition: .9s ease;
+  text-align:center;
+}
+#find_input:focus{
+  text-decoration: none;
+  border: none;
+  width:60%;
+  font-size:14px;
+  border-bottom: 3px solid #B8C6FF;
+  background-color: transparent;
+  outline: none;
+}
+.form_custom{
+    margin-top:8px;
+    text-align:center;
+}
+.select_btn{
+    font-family: thirdFont;
+    font-weight: 100;
+    width:80%;
+    min-height:15px;
+    margin-top:2px;
+    margin-bottom:2px;
+    text-decoration: none;
+    border:none;
+    outline: none;
+    background-color: #6A84EF;
+    border-radius: 8px;
+    color:#F5F995;
+}
+.for_searching{
+    display:none;
+}
+.message{
+    
+    display:none;
+}
+
+.my_friend{
+}
+.find_input_field{
+    display:none;
+}
+.other_people_searcing{
+    height:120px;
+    padding-right: 20px;
+    padding-left: 20px;
+    background-color: #f1f1f1;
+    padding-top: 10px;
+}
+.other_people_searcing2{
+    height:120px;
+    padding-right: 20px;
+    padding-left: 20px;
+    background-color: #e1e1e1;
+    padding-top: 10px;
+}
+
+
+@media only screen
+  and (min-device-width: 420px) {
+    #friend_body{
+      background-color: rgb(129,251,207) !important;
+      width: 100vw;
+      height:100%;
+    }
+    #friend_section{
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 0;
+      font-family: firstFont,   thirdFont;
+      padding:10px;
+      border-left: 10px solid black;
+      border-right: 10px solid black;
+      background-color: white;
+      max-width: 420px;
+      min-height:50vh;
+    }
+    
+  }
