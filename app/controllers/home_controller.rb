@@ -125,7 +125,7 @@ class HomeController < ApplicationController
     @complete_custom_quest.save
     
     #current_user.current_exp += (10 + current_user.level*2)
-    current_user.current_exp += ((rand(5..10) + current_user.level/3)*current_user.extra_exp)
+    current_user.current_exp += ((rand(5..10) + current_user.level/3)*current_user.extra_exp)*3
     
     while(true)
       if current_user.current_exp >= current_user.need_exp
@@ -137,7 +137,7 @@ class HomeController < ApplicationController
       end
     end
     
-    current_user.coin += rand(5..7)*10*current_user.extra_coin
+    current_user.coin += rand(5..7)*10*current_user.extra_coin*3
     current_user.save
     
     redirect_to '/main'
